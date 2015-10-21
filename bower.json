@@ -1,0 +1,7 @@
+{
+  "name": "clipboard",
+  "dependencies": {
+    "highlightjs": "~8.8.0",
+    "primer-css": "~2.3.3"
+  }
+}
