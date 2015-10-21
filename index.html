@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en" ng-app="ngclipboardDemo">
+<head>
+    <meta charset="utf-8">
+    <title>clipboard.js &mdash; Copy to clipboard without Flash</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Angularjs directive for clipboard.js">
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="bower_components/primer-css/css/primer.css">
+    <link rel="stylesheet" href="bower_components/highlightjs/styles/github.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900">
+    <link rel="stylesheet" href="assets/styles/main.css">
+</head>
+<body ng-controller="ngclipboardDemoCtrl">
+    <header class="header gradient text-center">
+        <h1 class="title">ngclipboard</h1>
+        <h2 class="subtitle">Angularjs directive for clipboard.js</h2>
+        <h2 class="subtitle">A modern approach to copy text to clipboard without using flash</h2>
+        <p class="gh-btns">
+            <iframe src="https://ghbtns.com/github-btn.html?user=zenorocha&amp;repo=clipboard.js&amp;type=watch&amp;count=true&amp;size=large"
+allowtransparency="true" frameborder="0" scrolling="0" width="152" height="30"></iframe>
+            <iframe src="https://ghbtns.com/github-btn.html?user=zenorocha&amp;repo=clipboard.js&amp;type=fork&amp;count=true&amp;size=large"
+allowtransparency="true" frameborder="0" scrolling="0" width="156" height="30"></iframe>
+        </p>
+    </header>
+
+    <main class="wrap">
+        <h1 id="why">Why</h1>
+
+        <p>Copying text to the clipboard shouldn't be hard. It shouldn't require dozens of steps to configure or hundreds of KBs to load. But most of all, it shouldn't depend on Flash or any bloated framework.</p>
+
+        <p>That's why clipboard.js exists.</p>
+
+        <h1 id="install">Install</h1>
+
+        <p>You can get it on npm.</p>
+
+        <pre class="snippet"><code class="js">npm install clipboard --save</code></pre>
+
+        <p>Or bower, too.</p>
+
+        <pre class="snippet"><code class="js">bower install clipboard --save</code></pre>
+
+        <p>If you're not into package management, just <a href="https://github.com/zenorocha/clipboard.js/archive/master.zip">download a ZIP</a> file.</p>
+
+        <h1 id="setup">Setup</h1>
+
+        <p>First, include the script located on the <code>dist</code> folder.</p>
+
+        <pre class="snippet"><code class="html">&lt;script src="dist/clipboard.min.js"&gt;&lt;/script&gt;</code></pre>
+
+        <p>Or load it from a CDN.</p>
+
+        <pre class="snippet"><code class="html">&lt;script src="https://cdn.rawgit.com/zenorocha/clipboard.js/master/dist/clipboard.min.js"&gt;&lt;/script&gt;</code></pre>
+
+        <p>Now, you need to instantiate it using a DOM selector. This selector corresponds to the trigger element(s), for example <code>&lt;button class="btn"&gt;</code>.</p>
+
+        <pre class="snippet"><code class="js">new Clipboard('.btn');</code></pre>
+
+        <p>Internally, we need to fetch all elements that matches with your selector and attach event listeners for each one. But guess what? If you have hundreds of matches, this operation can consume a lot of memory.</p>
+
+        <p>For this reason we use <a href="https://stackoverflow.com/questions/1687296/what-is-dom-event-delegation">event delegation</a> which replaces multiple event listeners with just a single listener. After all, <a href="https://twitter.com/hashtag/perfmatters">#perfmatters</a>.</p>
+
+        <h1 id="usage">Usage</h1>
+
+        <p>We're living a <em>declarative renaissance</em>, that's why we decided to take advantage of <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes">HTML5 data attributes</a> for better usability.</p>
+
+        <h3>Copy text from another element</h3>
+
+        <p>A pretty common use case is to copy content from another element. You can do that by adding a <code>data-clipboard-target</code> attribute in your trigger element.</p>
+        <p>The value you include on this attribute needs to match another's element selector.</p>
+
+        <div id="example-target" class="example">
+            <div class="input-group">
+                <input id="foo" type="text" value="https://github.com/zenorocha/clipboard.js.git">
+                <span class="input-group-button">
+                    <button class="btn" type="button" ngclipboard data-clipboard-target="#foo">
+                        <img class="clippy" src="assets/images/clippy.svg" width="13" alt="Copy to clipboard">
+                    </button>
+                </span>
+            </div>
+        </div>
+
+        <pre class="snippet"><code class="html">&lt;!-- Target --&gt;
+&lt;input id="foo" value="https://github.com/zenorocha/clipboard.js.git"&gt;
+
+&lt;!-- Trigger --&gt;
+&lt;button class="btn" data-clipboard-target="#foo"&gt;
+    &lt;img src="assets/clippy.svg" alt="Copy to clipboard"&gt;
+&lt;/button&gt;</code></pre>
+
+        <h3>Cut text from another element</h3>
+
+        <p>Additionally, you can define a <code>data-clipboard-action</code> attribute to specify if you want to either <code>copy</code> or <code>cut</code> content.</p>
+        <p>If you omit this attribute, <code>copy</code> will be used by default.</p>
+
+        <div id="example-action" class="example">
+            <div class="input-group">
+                <textarea id="bar" cols="62" rows="5" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">Mussum ipsum cacilds, vidis litro abertis. Consetis adipiscings elitis. Pra lá , depois divoltis porris, paradis. Paisis, filhis, espiritis santis. Mé faiz elementum girarzis, nisi eros vermeio, in elementis mé pra quem é amistosis quis leo. Manduma pindureta quium dia nois paga.</textarea>
+            </div>
+            <div class="form-actions">
+                <button class="btn" type="button" data-clipboard-demo data-clipboard-action="cut" data-clipboard-target="#bar">
+                    Cut to clipboard
+                </button>
+            </div>
+        </div>
+
+        <pre class="snippet"><code class="html">&lt;!-- Target --&gt;
+&lt;textarea id="bar"&gt;Mussum ipsum cacilds...&lt;/textarea&gt;
+
+&lt;!-- Trigger --&gt;
+&lt;button class="btn" data-clipboard-action="cut" data-clipboard-target="#bar"&gt;
+    Cut to clipboard
+&lt;/button&gt;</code></pre>
+
+        <p>As you may expect, the <code>cut</code> action only works on <code>&lt;input&gt;</code> or <code>&lt;textarea&gt;</code> elements.</p>
+
+        <h3>Copy text from attribute</h3>
+
+        <p>Truth is, you don't even need another element to copy its content from. You can just include a <code>data-clipboard-text</code> attribute in your trigger element.</p>
+
+        <div id="example-text" class="example">
+            <button class="btn" data-clipboard-demo data-clipboard-action="copy" data-clipboard-text="Just because you can doesn't mean you should — clipboard.js">Copy to clipboard</button>
+        </div>
+
+        <pre class="snippet"><code class="html">&lt;!-- Trigger --&gt;
+&lt;button class="btn" data-clipboard-text="Just because you can doesn't mean you should — clipboard.js"&gt;
+    Copy to clipboard
+&lt;/button&gt;</code></pre>
+
+        <h1 id="events">Events</h1>
+
+        <p>There are cases where you'd like to show some user feedback or capture what has been selected after a copy/cut operation.</p>
+
+        <p>That's why we fire custom events such as <code>success</code> and <code>error</code> for you to listen and implement your custom logic.</p>
+
+        <pre class="snippet"><code class="js">var clipboard = new Clipboard('.btn');
+
+clipboard.on('success', function(e) {
+    console.info('Action:', e.action);
+    console.info('Text:', e.text);
+    console.info('Trigger:', e.trigger);
+
+    e.clearSelection();
+});
+
+clipboard.on('error', function(e) {
+    console.error('Action:', e.action);
+    console.error('Trigger:', e.trigger);
+});</code></pre>
+
+        <p>For a live demonstration, just open your console :)</p>
+
+        <h1 id="advanced-usage">Advanced Usage</h1>
+
+        <p>If you don't want to modify your HTML, there's a pretty handy imperative API for you to use. All you need to do is declare a function, do your thing, and return a value.</p>
+
+        <p>For instance, if you want to dynamically set a <code>target</code>, you'll need to return a Node.</p>
+
+        <pre class="snippet"><code class="js">new Clipboard('.btn', {
+    target: function(trigger) {
+        return trigger.nextElementSibling;
+    }
+});</code></pre>
+
+        <p>If you want to dynamically set a <code>text</code>, you'll return a String.</p>
+
+        <pre class="snippet"><code class="js">new Clipboard('.btn', {
+    text: function(trigger) {
+        return trigger.getAttribute('aria-label');
+    }
+});</code></pre>
+
+        <p>Also, with are working with single page apps, you may want to manage the lifecycle of the DOM more precisely. Here's how you clean up the events and objects that we create.</p>
+
+        <pre class="snippet"><code class="js">var clipboard = new Clipboard('.btn');
+clipboard.destroy();</code></pre>
+
+        <h1 id="browser-support">Browser Support</h1>
+
+        <p>This library relies on both <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection">Selection</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand">execCommand</a> APIs. The second one is supported in the following browsers.</p>
+
+        <ul class="support">
+            <li>
+                <img src="assets/images/chrome.png" width="64" height="64" alt="Chrome logo">
+                <p>Chrome 42+</p>
+            <li>
+                <img src="assets/images/firefox.png" width="64" height="64" alt="Firefox logo">
+                <p>Firefox 41+</p>
+            </li>
+            <li>
+                <img src="assets/images/ie.png" width="64" height="64" alt="Internet Explorer logo">
+                <p>IE 9+</p>
+            </li>
+            <li>
+                <img src="assets/images/opera.png" width="64" height="64" alt="Opera logo">
+                <p>Opera 29+</p>
+            </li>
+            <li>
+                <img src="assets/images/safari.png" width="64" height="64" alt="Safari logo">
+                <p>Safari ✘</p>
+            </li>
+        </ul>
+
+        <p>Although copy/cut operations with <a href="https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand">execCommand</a> aren't supported on Safari yet (including mobile), it gracefully degrades because <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection">Selection</a> is supported.</p>
+
+        <p>That means you can show a tooltip saying <code>Copied!</code> when <code>success</code> event is called and <code>Press Ctrl+C to copy</code> when <code>error</code> event is called because the text is already selected.</p>
+
+        <p>For a live demonstration, open this site on Safari.</p>
+    </main>
+
+    <footer class="footer gradient text-center">
+        <p class="credits">
+            Made with <span class="love">♥</span> by <a class="credits-link" href="http://zenorocha.com/">Zeno Rocha</a> under <a class="credits-link" href="http://zenorocha.mit-license.org/">MIT license</a>
+        </p>
+    </footer>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+    <script src="bower_components/highlightjs/highlight.pack.min.js"></script>
+    <script src="dist/clipboard.min.js"></script>
+    <script src="dist/ngclipboard.min.js"></script>
+
+    <script src="assets/scripts/democtrl.js"></script>
+
+    <script src="assets/scripts/demos.js"></script>
+    <script src="assets/scripts/snippets.js"></script>
+    <script src="assets/scripts/tooltips.js"></script>
+
+</body>
+</html>
