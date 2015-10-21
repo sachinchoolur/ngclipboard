@@ -5,7 +5,7 @@
 ![bower](https://img.shields.io/bower/v/ngclipboard.svg)
 ![npm](https://img.shields.io/npm/v/ngclipboard.svg)
 
-> Angularjs directive for clipboard.js
+> Angularjs directive for [clipboard.js](http://zenorocha.github.io/clipboard.js/) by [@zenorocha](https://twitter.com/zenorocha)
 
 ## Install
 
