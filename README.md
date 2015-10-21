@@ -1,108 +1,158 @@
-![license](https://img.shields.io/npm/l/ladda-angular.svg)
-![travis](https://travis-ci.org/sachinchoolur/ladda-angular.svg?branch=master)
-![bower](https://img.shields.io/bower/v/ladda-angular.svg)
-![npm](https://img.shields.io/npm/v/ladda-angular.svg)
+# ngclipboard
 
-# ladda-angular
-Angularjs directive for [Ladda](http://lab.hakim.se/ladda/) button *`( <300 bytes )`* by [@hakimel](https://twitter.com/hakimel)
+![license](https://img.shields.io/npm/l/ngclipboard.svg)
+![travis](https://travis-ci.org/sachinchoolur/ngclipboard.svg?branch=master)
+![bower](https://img.shields.io/bower/v/ngclipboard.svg)
+![npm](https://img.shields.io/npm/v/ngclipboard.svg)
 
-Demo
----
-[Ladda angular](http://sachinchoolur.github.io/ladda-angular/)
+> Angularjs directive for clipboard.js
 
-You can also check live demo on [codepen](http://codepen.io/sachinchoolur/pen/ogxpOZ)
+## Install
 
-How to use 
----
-#### Bower
+You can get it on npm.
 
-You can Install ladda-angular using the [Bower](http://bower.io) package manager.
-
-```sh
-$ bower install ladda-angular --save
+```
+npm install ngclipboard --save
 ```
 
-#### npm
+Or bower, too.
 
-You can also find ladda-angular on [npm](http://npmjs.org).
-
-```sh
-$ npm install ladda-angular
 ```
-#### Create your ladda button
-
-For more information about how to create ladda button please refer [ladda](https://github.com/hakimel/Ladda) button repository.
-
-#### The code
-add the Following code into your document.
-``` html
-<script src="path/ladda-angular.min.js"></script>
-```
-#### module
-Add `ladda` dependency to your module
-``` javascript 
-var myApp = angular.module("app", ["ladda"]);
-```
-#### directive
-Add directive `ladda-button` with your normal ladda button.
-``` html
-<button ladda-button="laddaLoading" data-style="expand-right" class="ladda-button"><span class="ladda-label">Submit</span></button>
-```
-Directive attribute should be a scope variable with boolean or number.
-* `true`   == start loading.
-* `false`  == stop loading.
-* `number` == progress value.
-
-#### Controller example
-``` javascript
-app.controller('laddaDemoCtrl', function ($scope, $interval, $timeout) {
-    
-    // Example without progress Bar
-    $scope.showLoading = function () {
-        /* 
-         Set ladda loading true
-         Loading spinner will be shown;
-        */
-        $scope.laddaLoading = true;
-        $timeout(function () {
-            
-            /*
-             Set ladda loading false after 3 Seconds. 
-             Loading spinner will be hidden;
-            */
-            $scope.laddaLoading = false;
-        }, 3000);
-    };
-
-    // Example with progress Bar
-    $scope.loadingWithProgress = function () {
-        
-        // Set progress 0;
-        $scope.laddaLoadingBar = 0;
-        
-        // Run in every 30 milliseconds
-        var interval = $interval(function () {
-            
-            // Increment by 1; 
-            $scope.laddaLoadingBar++;
-            if ($scope.laddaLoadingBar >= 100) {
-                
-                // Cancel interval if progress is 100
-                $interval.cancel(interval);
-                
-                //Set ladda loading false
-                $scope.laddaLoadingBar = false;
-            }
-        }, 30);
-    };
-});
+bower install ngclipboard --save
 ```
 
-#### [guidelines for contributors](https://github.com/sachinchoolur/ladda-angular/blob/master/contributing.md)
+If you're not into package management, just [download a ZIP](https://github.com/sachinchoolur/ngclipboard/archive/master.zip) file.
 
-#### MIT © [Sachin](https://twitter.com/sachinchoolur)
+## Setup
+
+First, include angularjs and clipboard.js into your document. 
+
+```html
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src="https://cdn.rawgit.com/zenorocha/clipboard.js/master/dist/clipboard.min.js"></script>
+```
+
+Then Include ngclipboard.js. 
+
+```html
+<script src="dist/ngclipboard.min.js"></script>
+```
+Add `ngclipboard` dependency to your module
+```javascript
+var myApp = angular.module('app', ['ngclipboard']);
+```
+
+Finally, add `ngclipboard` directive to the wanted html element.
+
+```javascript
+<button class="btn" ngclipboard data-clipboard-text="Just because you can doesn't mean you should — clipboard.js">
+    Copy to clipboard
+</button>
+```
+
+# Usage
+
+We're living a _declarative renaissance_, that's why we decided to take advantage of [HTML5 data attributes](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes) for better usability.
+
+### Copy text from another element
+
+A pretty common use case is to copy content from another element. You can do that by adding a `data-clipboard-target` attribute in your trigger element.
+
+The value you include on this attribute needs to match another's element selector.
+
+<a href="https://zenorocha.github.io/clipboard.js/#example-target"><img width="473" alt="example-2" src="https://cloud.githubusercontent.com/assets/398893/9983467/a4946aaa-5fb1-11e5-9780-f09fcd7ca6c8.png"></a>
+
+```html
+<!-- Target -->
+<input id="foo" value="https://github.com/sachinchoolur/ngclipboard.git">
+
+<!-- Trigger -->
+<button class="btn" ngclipboard data-clipboard-target="#foo">
+    <img src="assets/clippy.svg" alt="Copy to clipboard">
+</button>
+```
+
+### Cut text from another element
+
+Additionally, you can define a `data-clipboard-action` attribute to specify if you want to either `copy` or `cut` content.
+
+If you omit this attribute, `copy` will be used by default.
+
+<a href="https://zenorocha.github.io/clipboard.js/#example-action"><img width="473" alt="example-3" src="https://cloud.githubusercontent.com/assets/398893/10000358/7df57b9c-6050-11e5-9cd1-fbc51d2fd0a7.png"></a>
+
+```html
+<!-- Target -->
+<textarea id="bar">Mussum ipsum cacilds...</textarea>
+
+<!-- Trigger -->
+<button class="btn" ngclipboard data-clipboard-action="cut" data-clipboard-target="#bar">
+    Cut to clipboard
+</button>
+```
+
+As you may expect, the `cut` action only works on `<input>` or `<textarea>` elements.
+
+### Copy text from attribute
+
+Truth is, you don't even need another element to copy its content from. You can just include a `data-clipboard-text` attribute in your trigger element.
+
+<a href="https://zenorocha.github.io/clipboard.js/#example-text"><img width="147" alt="example-1" src="https://cloud.githubusercontent.com/assets/398893/10000347/6e16cf8c-6050-11e5-9883-1c5681f9ec45.png"></a>
+
+```html
+<!-- Trigger -->
+<button class="btn" ngclipboard data-clipboard-text="Just because you can doesn't mean you should — clipboard.js">
+    Copy to clipboard
+</button>
+```
+
+## Events
+
+There are cases where you'd like to show some user feedback or capture what has been selected after a copy/cut operation.
+
+That's why we fire custom events such as `success` and `error` for you to listen and implement your custom logic.
+
+ngclipboard provides you two attributes called `ngclipboard-success` and `ngclipboard-error` to listen the clipboard events and implement your custom logic.
+
+```html
+<button class="btn" ngclipboard ngclipboard-success="onSuccess(e);" ngclipboard-error="onError(e);" data-clipboard-text="Just because you can doesn't mean you should — clipboard.js">
+    Copy to clipboard
+</button>
+```
+
+```js
+// You can still access the clipboard.js event
+$scope.onSuccess = function(e) {
+    console.info('Action:', e.action);
+    console.info('Text:', e.text);
+    console.info('Trigger:', e.trigger);
+
+    e.clearSelection();
+};
+
+$scope.onError = function(e) {
+    console.error('Action:', e.action);
+    console.error('Trigger:', e.trigger);
+}
+
+```
+
+For a live demonstration, open this [site](https://sachinchoolur.github.io/ngclipboard/) and just your console :)
 
 
+## Browser Support
 
+This library relies on both [Selection](https://developer.mozilla.org/en-US/docs/Web/API/Selection) and [execCommand](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand) APIs. The second one is supported in the following browsers.
 
+| <img src="https://zenorocha.github.io/clipboard.js/assets/images/chrome.png" width="48px" height="48px" alt="Chrome logo"> | <img src="https://zenorocha.github.io/clipboard.js/assets/images/firefox.png" width="48px" height="48px" alt="Firefox logo"> | <img src="https://zenorocha.github.io/clipboard.js/assets/images/ie.png" width="48px" height="48px" alt="Internet Explorer logo"> | <img src="https://zenorocha.github.io/clipboard.js/assets/images/opera.png" width="48px" height="48px" alt="Opera logo"> | <img src="https://zenorocha.github.io/clipboard.js/assets/images/safari.png" width="48px" height="48px" alt="Safari logo"> |
+|:---:|:---:|:---:|:---:|:---:|
+| 42+ ✔ | 41+ ✔ | 9+ ✔ | 29+ ✔ | Nope ✘ |
 
+Although copy/cut operations with [execCommand](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand) aren't supported on Safari yet (including mobile), it gracefully degrades because [Selection](https://developer.mozilla.org/en-US/docs/Web/API/Selection) is supported.
+
+That means you can show a tooltip saying `Copied!` when `success` event is called and `Press Ctrl+C to copy` when `error` event is called because the text is already selected.
+
+For a live demonstration, open this [site](https://sachinchoolur.github.io/ngclipboard/) on Safari.
+
+## License
+
+MIT License
