@@ -7,8 +7,8 @@
         return {
             restrict: 'A',
             scope: {
-                ngClipboardSuccess: '&',
-                ngClipboardError: '&'
+                ngclipboardSuccess: '&',
+                ngclipboardError: '&'
             },
             link: function(scope, element) {
 
@@ -21,14 +21,14 @@
                 var clipboard = new Clipboard('#' + _id);
 
                 clipboard.on('success', function(e) {
-                    scope.ngClipboardSuccess({
+                    scope.ngclipboardSuccess({
                         e: e,
                         id: element.attr('id')
                     });
                 });
 
                 clipboard.on('error', function(e) {
-                    scope.ngClipboardError({
+                    scope.ngclipboardError({
                         e: e,
                         id: element.attr('id')
                     });
