@@ -19,15 +19,13 @@
 
                 clipboard.on('success', function(e) {
                     scope.ngclipboardSuccess({
-                        e: e,
-                        id: element.attr('id')
+                        e: e
                     });
                 });
 
                 clipboard.on('error', function(e) {
                     scope.ngclipboardError({
-                        e: e,
-                        id: element.attr('id')
+                        e: e
                     });
                 });
 
