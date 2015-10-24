@@ -1,7 +1,6 @@
 # ngclipboard
 
 ![license](https://img.shields.io/npm/l/ngclipboard.svg)
-![travis](https://travis-ci.org/sachinchoolur/ngclipboard.svg?branch=master)
 ![bower](https://img.shields.io/bower/v/ngclipboard.svg)
 ![npm](https://img.shields.io/npm/v/ngclipboard.svg)
 
