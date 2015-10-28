@@ -1,4 +1,5 @@
 # ngclipboard
+##### An angularjs directive to copy text to clipboard without using flash
 
 ![license](https://img.shields.io/npm/l/ngclipboard.svg)
 ![travis](https://travis-ci.org/sachinchoolur/ngclipboard.svg?branch=master)
