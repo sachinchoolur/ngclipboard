@@ -1,9 +1,19 @@
-/*! ngclipboard - v1.0.0 - 2015-10-24
+/*! ngclipboard - v1.0.0 - 2015-12-04
 * https://github.com/sachinchoolur/ngclipboard
 * Copyright (c) 2015 Sachin; Licensed MIT */
 (function() {
     'use strict';
-    angular.module('ngclipboard', []).directive('ngclipboard', function() {
+    var MODULE_NAME = 'ngclipboard';
+    var angular;
+
+    if (typeof module !== 'undefined' && typeof module.exports === 'object') {
+      angular = require('angular');
+      module.exports = MODULE_NAME;
+    } else {
+      angular = window.angular;
+    }
+
+    angular.module(MODULE_NAME, []).directive('ngclipboard', function() {
         return {
             restrict: 'A',
             scope: {
