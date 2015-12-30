@@ -1,6 +1,18 @@
 (function() {
     'use strict';
-    angular.module('ngclipboard', []).directive('ngclipboard', function() {
+    var MODULE_NAME = 'ngclipboard';
+    var angular, Clipboard;
+
+    if (typeof module !== 'undefined' && typeof module.exports === 'object') {
+      angular = require('angular');
+      Clipboard = require('clipboard');
+      module.exports = MODULE_NAME;
+    } else {
+      angular = window.angular;
+      Clipboard = window.Clipboard;
+    }
+
+    angular.module(MODULE_NAME, []).directive('ngclipboard', function() {
         return {
             restrict: 'A',
             scope: {
