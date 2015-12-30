@@ -1,4 +1,4 @@
-/*! ngclipboard - v1.0.0 - 2015-12-08
+/*! ngclipboard - v1.1.0 - 2015-12-30
 * https://github.com/sachinchoolur/ngclipboard
 * Copyright (c) 2015 Sachin; Licensed MIT */
 (function() {
@@ -23,14 +23,7 @@
                 ngclipboardError: '&'
             },
             link: function(scope, element) {
-
-                var _id = element.attr('id');
-                if (!_id) {
-                    element.attr('id', 'ngclipboard' + Date.now());
-                    _id = element.attr('id');
-                }
-
-                var clipboard = new Clipboard('#' + _id);
+                var clipboard = new Clipboard(element[0]);
 
                 clipboard.on('success', function(e) {
                     scope.ngclipboardSuccess({
