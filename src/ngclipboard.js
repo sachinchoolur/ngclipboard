@@ -2,8 +2,9 @@
     'use strict';
     var MODULE_NAME = 'ngclipboard';
     var angular, Clipboard;
-
-    if (typeof module !== 'undefined' && typeof module.exports === 'object') {
+    
+    // Check for CommonJS support
+    if (typeof module === 'object' && module.exports) {
       angular = require('angular');
       Clipboard = require('clipboard');
       module.exports = MODULE_NAME;
