@@ -24,15 +24,19 @@
                 var clipboard = new Clipboard(element[0]);
 
                 clipboard.on('success', function(e) {
+                  scope.$apply(function () {
                     scope.ngclipboardSuccess({
-                        e: e
+                      e: e
                     });
+                  });
                 });
 
                 clipboard.on('error', function(e) {
+                  scope.$apply(function () {
                     scope.ngclipboardError({
-                        e: e
+                      e: e
                     });
+                  });
                 });
 
             }
