@@ -49,12 +49,12 @@
 
     // Check for AMD support
     } else if (typeof define === 'function' && define.amd) {
-        define(['angular', 'Clipboard', function(ng, clipboard) {
+        define(['angular', 'Clipboard'], function(ng, clipboard) {
             angular = ng;
             Clipboard = clipboard;
 
             initialize();
-        }]);
+        });
     } else {
         angular = window.angular;
         Clipboard = window.Clipboard;
