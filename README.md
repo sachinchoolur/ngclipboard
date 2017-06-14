@@ -146,13 +146,13 @@ This library relies on both [Selection](https://developer.mozilla.org/en-US/docs
 
 | <img src="https://zenorocha.github.io/clipboard.js/assets/images/chrome.png" width="48px" height="48px" alt="Chrome logo"> | <img src="https://zenorocha.github.io/clipboard.js/assets/images/firefox.png" width="48px" height="48px" alt="Firefox logo"> | <img src="https://zenorocha.github.io/clipboard.js/assets/images/ie.png" width="48px" height="48px" alt="Internet Explorer logo"> | <img src="https://zenorocha.github.io/clipboard.js/assets/images/opera.png" width="48px" height="48px" alt="Opera logo"> | <img src="https://zenorocha.github.io/clipboard.js/assets/images/safari.png" width="48px" height="48px" alt="Safari logo"> |
 |:---:|:---:|:---:|:---:|:---:|
-| 42+ ✔ | 41+ ✔ | 9+ ✔ | 29+ ✔ | Nope ✘ |
+| 42+ ✔ | 41+ ✔ | 9+ ✔ | 29+ ✔ | 10+ ✔ |
 
-Although copy/cut operations with [execCommand](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand) aren't supported on Safari yet (including mobile), it gracefully degrades because [Selection](https://developer.mozilla.org/en-US/docs/Web/API/Selection) is supported.
+When an occurence occurs where the [execCommand](https://developer.mozilla.org/en-US/docs/Web/API/Document/execCommand) copy/cut operations are not supported, it gracefully degrades because [Selection](https://developer.mozilla.org/en-US/docs/Web/API/Selection) is widely supported.
 
 That means you can show a tooltip saying `Copied!` when `success` event is called and `Press Ctrl+C to copy` when `error` event is called because the text is already selected.
 
-For a live demonstration, open this [site](https://sachinchoolur.github.io/ngclipboard/) on Safari.
+For a live demonstration, open this [site](https://sachinchoolur.github.io/ngclipboard/) with a non-supporting browser.
 
 ## License
 
