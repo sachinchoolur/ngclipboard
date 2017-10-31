@@ -1,6 +1,6 @@
-/*! ngclipboard - v1.1.1 - 2016-02-26
+/*! ngclipboard - v1.1.3 - 2017-10-31
 * https://github.com/sachinchoolur/ngclipboard
-* Copyright (c) 2016 Sachin; Licensed MIT */
+* Copyright (c) 2017 Sachin; Licensed MIT */
 (function() {
     'use strict';
     var MODULE_NAME = 'ngclipboard';
@@ -45,4 +45,4 @@
             }
         };
     });
-}());
+})();
