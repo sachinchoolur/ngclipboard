@@ -41,6 +41,10 @@
                     });
                   });
                 });
+                
+                element.on('$destroy', function() {
+                    clipboard.destroy();
+                });
 
             }
         };
