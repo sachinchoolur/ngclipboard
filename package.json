@@ -29,7 +29,7 @@
         "test": "grunt"
     },
     "dependencies": {
-        "clipboard": "^2.0.0"
+        "clipboard": "1.7.1"
     },
     "peerDependencies": {
         "angular": "^1.2.0"
