@@ -18,11 +18,17 @@
             restrict: 'A',
             scope: {
                 ngclipboardSuccess: '&',
-                ngclipboardError: '&'
+                ngclipboardError: '&',
+                ngclipboardText: '&'
             },
-            link: function(scope, element) {
+            link: function(scope, element, attr) {
                 //constructor for clipboardjs changed to ClipboardJS
-                var clipboard = new ClipboardJS(element[0]);
+                var clipboard;
+                if (attr.hasOwnProperty('ngclipboardText')) {
+                    clipboard = new ClipboardJS(element[0], {text: scope.ngclipboardText});
+                } else {
+                    clipboard = new ClipboardJS(element[0]);
+                }
 
                 clipboard.on('success', function(e) {
                   scope.$apply(function () {
