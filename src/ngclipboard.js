@@ -25,11 +25,16 @@
                 var clipboard = new ClipboardJS(element[0]);
 
                 clipboard.on('success', function(e) {
-                  scope.$apply(function () {
+                  var successCallback = function () {
                     scope.ngclipboardSuccess({
                       e: e
                     });
-                  });
+                  };
+                  if (!scope.$$phase) {
+                    successCallback();
+                  } else {
+                      scope.$apply(successCallback);
+                  }
                 });
 
                 clipboard.on('error', function(e) {
